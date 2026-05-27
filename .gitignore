@@ -4,3 +4,6 @@ CACHEDIR.TAG
 pyvenv.cfg
 pyproject.toml
 .python-version
+datasett/
+.claude
+.venv

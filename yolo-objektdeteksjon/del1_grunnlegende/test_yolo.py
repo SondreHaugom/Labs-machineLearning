@@ -10,3 +10,5 @@ for boks in resultater[0].boxes: # kjører løkke for hver boks i det første re
     koordinater = boks.xyxy[0].tolist()
     print(f"{klasse}: {konfidens:.2f} – {koordinater}")
  
+
+ 
