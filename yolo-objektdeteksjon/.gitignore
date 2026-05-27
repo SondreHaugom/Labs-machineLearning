@@ -1,0 +1,6 @@
+bin
+lib
+CACHEDIR.TAG
+pyvenv.cfg
+pyproject.toml
+.python-version
