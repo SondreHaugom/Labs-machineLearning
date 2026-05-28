@@ -12,7 +12,9 @@
       "Bash(conda info *)",
       "Read(//Users/sondrehaugom/Library/**)",
       "Read(//opt/miniconda3/bin/**)",
-      "Read(//opt/miniconda3/envs/**)"
+      "Read(//opt/miniconda3/envs/**)",
+      "Bash(mkdir -p /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/images/train /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/images/val /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/labels/train /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/labels/val)",
+      "Bash(touch /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/images/train/.gitkeep /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/images/val/.gitkeep /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/labels/train/.gitkeep /Users/sondrehaugom/Documents/Yolo/yolo-objektdeteksjon/del3_egent_datasett/datasett/labels/val/.gitkeep)"
     ]
   }
 }
