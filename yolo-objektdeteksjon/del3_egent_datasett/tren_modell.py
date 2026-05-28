@@ -1,18 +1,19 @@
 from ultralytics import YOLO
 from pathlib import Path
 
-base_dir = Path(__file__).resolve().parent
-workspace_dir = base_dir.parents[1]
+file_path = Path.cwd() / "yolo-objektdeteksjon/del3_egent_datasett" / "data.yaml"
 
-model = YOLO(workspace_dir / "yolo11n.pt")
+model = YOLO(file_path.parent / "yolo11n.pt")
+
 
 model.train(
-    data=base_dir / "data.yaml",
+    data=file_path,
     epochs=30,
-    imgsz=440,
+    imgsz=448,
     batch=8,
-    project=str(base_dir / "tren_modell"),
+    project=str(file_path.parent / "tren_modell"),
     name="yolo11n_egent_datasett",
 )
 result = model.val()
 print(result)
+
