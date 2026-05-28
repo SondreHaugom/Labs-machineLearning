@@ -7,3 +7,5 @@ pyproject.toml
 datasett/
 .claude
 .venv
+data/
+data.yaml
