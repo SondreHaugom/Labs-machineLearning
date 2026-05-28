@@ -6,6 +6,10 @@ from ultralytics import YOLO
 def kamera_deteksjon():
     try:
         modell = YOLO("best.pt")          # laster ned automatisk første gang
+        if not modell:
+            print("Feil ved innlastning av modellen")
+            return
+        
         kamera = cv2.VideoCapture(0) # 0 for innebygd kamera, 1 for ekstern
         forrige_tid = time.time()
 
@@ -37,6 +41,8 @@ kamera_deteksjon()
 
 
 
+
+# Eksempel skript for deteksjon med webkamera, kan kjøres i del4_applikasjon/app.py
 """
 modell = YOLO("best.pt")          # laster ned automatisk første gang
 kamera = cv2.VideoCapture(0) # 0 for innebygd kamera, 1 for ekstern
