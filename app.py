@@ -5,7 +5,8 @@ import inquirer
 
 
 valg_liste = [
-    "Start deteksjon",
+    "Start live deteksjon",
+    "Legg til bilde for deteksjon",
     "Avslutt"
 ]
 
@@ -21,12 +22,17 @@ def logg_deteksjon(fil, klasse, konfidens, boks):
 
 
 if __name__ == "__main__":
-	while True:
-          userInput = inquirer.list_input("Velg et alternativ:", choices=valg_liste)
-          if userInput == "Start deteksjon":
-               print("Starter deteksjon...")
-               kamera_deteksjon()
-               logg_deteksjon()
-          elif userInput == "Avslutt":
-                print("Avslutter programmet.")
-                break
+     while True:
+        userInput = inquirer.list_input("Velg et alternativ:", choices=valg_liste)
+        if userInput == "Start live deteksjon":
+            print("Starter live deteksjon...")
+            kamera_deteksjon()
+          
+        
+        elif userInput == "Legg til bilde for deteksjon":
+            print("Funksjonalitet for bildeopplasting er under utvikling.")
+
+
+        elif userInput == "Avslutt":
+            print("Avslutter programmet.")
+            break
