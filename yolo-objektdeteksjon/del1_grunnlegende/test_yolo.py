@@ -1,11 +1,11 @@
 from ultralytics import YOLO
 
-modell = YOLO("last.pt")          # laster ned automatisk første gang
+modell = YOLO("best.pt")          # laster ned automatisk første gang
 
 result = modell(
     "yolo-objektdeteksjon/del1_grunnlegende/20260528_133629.jpg",
-    conf=0.50, # minimun confidence for å beholde deteksjonen
-    iou=0.10, # 
+    conf=0.40, # minimun confidence for å beholde deteksjonen
+    iou=0.20, # 
     max_det=10, # maks antall deteksjoner per bilde
     agnostic_nms=True, # ikke skille mellom klasser ved NMS
 )

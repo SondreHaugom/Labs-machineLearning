@@ -1,4 +1,4 @@
-from yolo_objektdeteksjon.del2_webkamera.kamera_deteksjon import kamera_deteksjon
+from kamera_deteksjon import kamera_deteksjon
 import csv
 from datetime import datetime
 import inquirer
@@ -10,6 +10,8 @@ valg_liste = [
     "Avslutt"
 ]
 
+"""
+
 
 def logg_deteksjon(fil, klasse, konfidens, boks):
     with open(fil, mode='a', newline='') as csvfile:
@@ -20,6 +22,9 @@ def logg_deteksjon(fil, klasse, konfidens, boks):
              *[int(v) for v in boks]
         ])
 
+"""
+
+
 
 if __name__ == "__main__":
      while True:
@@ -28,7 +33,6 @@ if __name__ == "__main__":
             print("Starter live deteksjon...")
             kamera_deteksjon()
           
-        
         elif userInput == "Legg til bilde for deteksjon":
             print("Funksjonalitet for bildeopplasting er under utvikling.")
 
@@ -36,3 +40,5 @@ if __name__ == "__main__":
         elif userInput == "Avslutt":
             print("Avslutter programmet.")
             break
+
+        
