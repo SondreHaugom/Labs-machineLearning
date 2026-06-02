@@ -11,6 +11,7 @@ valg_liste = [
 ]
 
 
+# Funksjon for å logge deteksjoner til en CSV-fil
 def bilde_deteksjon():
     model = YOLO("best.pt")
 
@@ -32,6 +33,10 @@ def bilde_deteksjon():
 
 
 
+
+
+
+# Funksjon for å logge deteksjoner til en CSV-fil
 def logg_deteksjon(fil, klasse, konfidens, boks):
     with open(fil, mode='a', newline='') as csvfile:
         writer = csv.writer(csvfile)
@@ -60,5 +65,3 @@ if __name__ == "__main__":
         elif userInput == "Avslutt":
             print("Avslutter programmet.")
             break
-
-        
