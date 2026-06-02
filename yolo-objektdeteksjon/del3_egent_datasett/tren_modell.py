@@ -8,7 +8,7 @@ model = YOLO(file_path.parent / "yolo11n.pt")
 
 model.train(
     data=file_path,
-    epochs=30,
+    epochs=60,
     imgsz=448,
     batch=8,
     project=str(file_path.parent / "tren_modell"),
