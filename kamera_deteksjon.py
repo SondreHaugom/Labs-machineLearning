@@ -24,6 +24,8 @@ def kamera_deteksjon():
             annotert = resultater[0].plot()
             fps = 1 / (time.time() - forrige_tid)
 
+           #logg_deteksjon("deteksjoner.csv", "Live Deteksjon", resultater, annotert) # Logg for live deteksjon
+
             forrige_tid = time.time()
             cv2.putText(annotert, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             cv2.imshow("Deteksjon", annotert)
