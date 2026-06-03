@@ -68,7 +68,6 @@ if __name__ == "__main__":
         userInput = inquirer.list_input("Velg et alternativ:", choices=valg_liste)
         if userInput == "Start live deteksjon":
             print("Starter live deteksjon...")
-            logg_deteksjon("deteksjoner.csv", "Live Deteksjon", 0.0, [0, 0, 0, 0]) # Logg for live deteksjon
             kamera_deteksjon()
           
         elif userInput == "Legg til bilde for deteksjon":
