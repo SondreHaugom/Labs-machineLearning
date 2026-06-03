@@ -1,10 +1,8 @@
-from webbrowser import get
 from ultralytics import YOLO
-import streamlit as st
-from PIL import Image
 import csv
 from datetime import datetime
-import inquirer
+import tkinter as tk
+from tkinter import filedialog
 
 
 def logg_deteksjon(fil, klasse, konfidens, boks):
@@ -17,6 +15,22 @@ def logg_deteksjon(fil, klasse, konfidens, boks):
         ])
 
 
+def fileInput():
+    root = tk.Tk() # Oppretter et skjult Tkinter-vindu
+    root.withdraw() # Skjul hovedvinduet
+
+    file_path = filedialog.askopenfilename(
+        title="Velg et bilde for deteksjon",
+        filetypes=[("Image files", "*.jpg *.jpeg *.png")]
+    )
+
+    if file_path:
+        print(f"Valgt fil: {file_path}")
+        return file_path
+    else:
+        print("Ingen fil valgt.")
+        return None
+
 
 
 modell = YOLO("best.pt")          # laster ned automatisk første gang
@@ -24,7 +38,7 @@ modell = YOLO("best.pt")          # laster ned automatisk første gang
 
 
 result = modell(
-    "yolo-objektdeteksjon/del1_grunnlegende/20260528_133629.jpg",
+    fileInput(),
     conf=0.40, # minimun confidence for å beholde deteksjonen
     iou=0.20, # 
     max_det=10, # maks antall deteksjoner per bilde
@@ -44,16 +58,4 @@ for boks in result[0].boxes:
 
 
 
-"""
-def fileInput():
-    st.title("YOLOv8 Object Detection")
-    uploaded_file = st.file_uploader("Last opp et bilde", type=["jpg"]).lower()
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Lastet opp bilde", use_column_width=True)
-        return uploaded_file.lower() 
-    else:
-        st.warning("Vennligst last opp et bilde for deteksjon.")
-        return None
 
-"""
