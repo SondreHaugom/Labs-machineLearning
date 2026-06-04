@@ -43,5 +43,3 @@ def kamera_deteksjon():
     finally:
         kamera.release()
         cv2.destroyAllWindows()
-
-kamera_deteksjon()

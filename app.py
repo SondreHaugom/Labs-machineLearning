@@ -12,7 +12,7 @@ valg_liste = [
 ]
 
 
-def fileInput():
+def file_input():
     root = tk.Tk() # Oppretter et skjult Tkinter-vindu
     root.withdraw() # Skjul hovedvinduet
 
@@ -35,9 +35,9 @@ def bilde_deteksjon():
     model = YOLO("best.pt")
 
     result = model(
-        fileInput(),
+        file_input(),
         conf=0.40, # minimun confidence for å beholde deteksjonen
-        iou=0.20, # 
+        iou=0.20, 
         max_det=10, # maks antall deteksjoner per bilde
         agnostic_nms=True, # ikke skille mellom klasser ved NMS
     )
