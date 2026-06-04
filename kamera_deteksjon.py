@@ -24,7 +24,12 @@ def kamera_deteksjon():
             annotert = resultater[0].plot()
             fps = 1 / (time.time() - forrige_tid)
 
-           #logg_deteksjon("deteksjoner.csv", "Live Deteksjon", resultater, annotert) # Logg for live deteksjon
+            for deteksjon in resultater[0].boxes:
+                klasse_id = int(deteksjon.cls[0])
+                klasse_navn = modell.names[klasse_id]
+                konfidens = float(deteksjon.conf[0])
+                boks = deteksjon.xyxy[0]
+                logg_deteksjon("deteksjoner.csv", klasse_navn, konfidens, boks)
 
             forrige_tid = time.time()
             cv2.putText(annotert, f"FPS: {fps:.2f}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
@@ -38,3 +43,5 @@ def kamera_deteksjon():
     finally:
         kamera.release()
         cv2.destroyAllWindows()
+
+kamera_deteksjon()
