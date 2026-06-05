@@ -8,17 +8,36 @@
 
 
 ### Innholdsfortegnelse
+**Del 1 – Oppgavekrav**
+- [Hva er Ultralytics YOLO og objektdeteksjon?](#hva-er-ultralytics-yolo-og-objektdeteksjon)
 - [Om prosjektet](#om-prosjektet)
-- [Om modellen](#Om-modellen)
-- [Annoterings prosessen](#Annoterings-prosessen)
-- [Prosjektstruktur](#prosjektstruktur)
+- [Om modellen](#om-modellen)
+- [Annotering og oppbygging av datasett](#annotering-og-oppbygging-av-datasett)
+- [mAP](#map)
+- [Konfidensscore og boundingbox](#konfidensscore-og-boundingbox)
+- [Feilsøkningsmetoder](#feilsøkningsmetoder)
+- [Filstruktur og filforklaring](#filstruktur-og-filforklaring)
+- [Etikk og personvern](#etikk-og-personvern)
+
+**Del 2 – Teknisk dokumentasjon**
 - [Arkitektur-prinsipper](#arkitektur-prinsipper)
 - [Biblioteker og begrunnelse](#biblioteker-og-begrunnelse)
-- [Teori](#teori)
 - [Sikkerhet og personvern](#sikkerhet-og-personvern)
 - [Installasjon og oppsett](#installasjon-og-oppsett)
 - [Feilsøkings-strategier](#feilsøkings-strategier)
 
+
+---
+
+# Hva er Ultralytics YOLO og objektdeteksjon?
+
+**Ultralytics YOLO** er en populær rammeverk for objektdeteksjon i sanntid. YOLO står for *"You Only Look Once"*, og navnet kommer av at modellen analyserer hele bildet i én operasjon, i stedet for å dele det opp i mindre deler. Dette gjør YOLO-modellene **ekstremt raske**, samtidig som de opprettholder høy nøyaktighet.
+
+**Objektdeteksjon** er en teknikk innen maskinlæring og datavitenskap som går ut på å identifisere og lokalisere objekter i bilder eller video. Når en modell utfører objektdeteksjon, tegner den såkalte *bounding boxes* (rektangulære rammer) rundt objektene den gjenkjenner. I tillegg klassifiserer modellen hvert objekt, for eksempel som "bil", "person" eller – i dette prosjektet – "Twist-sjokolade".
+
+YOLO-modeller trenes på store datasett med annoterte bilder, der hvert objekt er merket med en boks 
+
+---
 
 # Om prosjektet
 Yolo-objektdeteksjon handler om maskinlæring og KI. I dette prosjektet bruker jeg en ferdigtrent YOLO-modell som kun fokuserer på objektgjenkjenning av et valgfritt objekt. Prosjektet er en halvårsvurderings mappeoppgave ettersom jeg har vært lærling i snart 1 år.
@@ -30,13 +49,6 @@ Applikasjonen støtter to deteksjonsmoduser:
 Alle deteksjoner logges automatisk til en CSV-fil med tidsstempel, klasse, konfidensgrad og koordinater.
 
 
-# Hva er Ultralytics YOLO og objektdeteksjon?
-
-**Ultralytics YOLO** er en populær rammeverk for objektdeteksjon i sanntid. YOLO står for *"You Only Look Once"*, og navnet kommer av at modellen analyserer hele bildet i én operasjon, i stedet for å dele det opp i mindre deler. Dette gjør YOLO-modellene **ekstremt raske**, samtidig som de opprettholder høy nøyaktighet.
-
-**Objektdeteksjon** er en teknikk innen maskinlæring og datavitenskap som går ut på å identifisere og lokalisere objekter i bilder eller video. Når en modell utfører objektdeteksjon, tegner den såkalte *bounding boxes* (rektangulære rammer) rundt objektene den gjenkjenner. I tillegg klassifiserer modellen hvert objekt, for eksempel som "bil", "person" eller – i dette prosjektet – "Twist-sjokolade".
-
-YOLO-modeller trenes på store datasett med annoterte bilder, der hvert objekt er merket med en boks 
 
 
 ## Om modellen
@@ -167,48 +179,6 @@ Prosjektet er delt opp i separate moduler for å holde koden oversiktlig og vedl
 | `csv` | Logging av deteksjoner | Lettvektsformat som er enkelt å analysere i etterkant |
 | `datetime` | Tidsstempel på deteksjoner | Gjør det mulig å spore når objekter ble oppdaget |
 
-
-### Teori
-
-**YOLO (You Only Look Once)** er en rask og nøyaktig objektdeteksjonsalgoritme. I motsetning til eldre metoder som deler opp bildeanalysen i flere steg, behandler YOLO hele bildet i én enkelt gjennomkjøring av nettverket. Dette gjør den svært rask og egnet for sanntidsdeteksjon.
-
-**Viktige begreper:**
-
-- **Konfidensgrad** – Et tall mellom 0 og 1 som sier hvor sikker modellen er på en deteksjon. I dette prosjektet brukes en minimumsgrense på 0.40 (40%).
-- **IoU (Intersection over Union)** – Måler overlapp mellom to bounding boxes. Brukes i NMS for å fjerne duplikatdeteksjoner.
-- **NMS (Non-Maximum Suppression)** – Fjerner overlappende deteksjoner slik at hvert objekt kun markeres én gang.
-- **Bounding box** – Det rektangulære området som markerer et oppdaget objekt i bildet.
-- **Trening** – Modellen (`best.pt`) er trent på et eget datasett lagret i `datasett/`-mappen med egendefinerte bilder.
-
-
-**bounding box**
-- **bounding box er en boks rektangelet rundt objektet**
-- **Den kan beskrives med koordinater: x1, y1, x2, y2**
-
-
-**konfidensscore**
-- **Konfidensscore er hvor sikker modellen er**
-- **Eksempel: kopp: 0.87**
-- **Det betyr at modellen er 87 % sikker på at objektet er en kopp**
-
-
-**annotering**
-Annotering betyr at du manuelt markerer objekter i bildene og sier hva de er. 
-- **Dette bruker modellen for å se hva slags objekt som den skal trenes på**
-- **Dette gir modellen navn på objektet**
-
-![Annotering](image.png)
-
-
-**mAP**
-- **mAP står for mean Average Precision**
-- **Det er en måling på hvor godt modellen finner objekter og plasserer bounding boxes riktig**
-
-mAP sier noe om hvor presis modellen er på valideringsdata. En høyere mAP betyr at modellen generelt treffer bedre på både klasse og plassering.
-
-
-**Deteksjonsproblem**
-Under live-deteksjon kan modellen av og til feilidentifisere objekter som holdes opp, spesielt når de ligner på andre objekter den er trent på. Selv om modellen raskt korrigerer seg og gjenkjenner riktig objekt, kan den midlertidig forveksle objekter under bevegelse.
 
 
 ### Sikkerhet og personvern
