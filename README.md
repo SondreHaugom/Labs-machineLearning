@@ -30,6 +30,15 @@ Applikasjonen støtter to deteksjonsmoduser:
 Alle deteksjoner logges automatisk til en CSV-fil med tidsstempel, klasse, konfidensgrad og koordinater.
 
 
+# Hva er Ultralytics YOLO og objektdeteksjon?
+
+**Ultralytics YOLO** er en populær rammeverk for objektdeteksjon i sanntid. YOLO står for *"You Only Look Once"*, og navnet kommer av at modellen analyserer hele bildet i én operasjon, i stedet for å dele det opp i mindre deler. Dette gjør YOLO-modellene **ekstremt raske**, samtidig som de opprettholder høy nøyaktighet.
+
+**Objektdeteksjon** er en teknikk innen maskinlæring og datavitenskap som går ut på å identifisere og lokalisere objekter i bilder eller video. Når en modell utfører objektdeteksjon, tegner den såkalte *bounding boxes* (rektangulære rammer) rundt objektene den gjenkjenner. I tillegg klassifiserer modellen hvert objekt, for eksempel som "bil", "person" eller – i dette prosjektet – "Twist-sjokolade".
+
+YOLO-modeller trenes på store datasett med annoterte bilder, der hvert objekt er merket med en boks 
+
+
 ## Om modellen
 Som grunnmodell har jeg brukt YOLO11n, som ble lansert høsten 2024. Denne modellen er rask og nøyaktig, noe som gjør den perfekt for sanntidsdeteksjon. Det er viktig å bruke en YOLO-modell som passer fint til ditt bruksområde og at utvalgt modell passer til din hardware. Jeg valgte derfor YOLO11n fordi den er god for trening og live deteksjon, som var et viktig krav for dette prosjektet. 
 
