@@ -94,7 +94,7 @@ Boundingbox er boksen modellen tegner rundt objektet med navn av objektet og kon
 - **Hvilket objekt den har funnet**
 - **Hvor sikker den er**
 
-![Konfidensscore](image copy.png)
+![Konfidensscore](image_copy.png)
 
 ### Feilsøkningsmetoder
 Under prosjektet har jeg hatt stort fokus på datagrunnlaget. En feilsøkningsmetode jeg har brukt er hjelp fra min kollega som har gjort dette tidligere. Med den hjelpen så vi på datasettet og mAP-en og fikk satt opp en plan for å gjøre datasettet bedre for modellen. 
