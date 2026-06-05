@@ -9,6 +9,8 @@
 
 ### Innholdsfortegnelse
 - [Om prosjektet](#om-prosjektet)
+- [Om modellen](#Om-modellen)
+- [Annoterings prosessen](#Annoterings-prosessen)
 - [Prosjektstruktur](#prosjektstruktur)
 - [Arkitektur-prinsipper](#arkitektur-prinsipper)
 - [Biblioteker og begrunnelse](#biblioteker-og-begrunnelse)
@@ -18,7 +20,7 @@
 - [Feilsøkings-strategier](#feilsøkings-strategier)
 
 
-### Om prosjektet
+# Om prosjektet
 Yolo-objektdeteksjon handler om maskinlæring og KI. I dette prosjektet bruker jeg en ferdigtrent YOLO-modell som kun fokuserer på objektgjenkjenning av et valgfritt objekt. Prosjektet er en halvårsvurderings mappeoppgave etter som jeg har vært lærling i snart 1 år.
 
 Applikasjonen støtter to deteksjonsmoduser:
@@ -26,6 +28,46 @@ Applikasjonen støtter to deteksjonsmoduser:
 - **Bildedeteksjon** der brukeren velger en bildefil som analyseres og lagres med markerte objekter
 
 Alle deteksjoner logges automatisk til en CSV-fil med tidsstempel, klasse, konfidensgrad og koordinater.
+
+
+## Om modellen
+Som grunnmodell har jeg brukt YOLO11n, som ble lansert høsten 2024. Denne modellen er rask og nøyaktig, noe som gjør den perfekt for sanntidsdeteksjon. Det er viktig å bruke en Yolo modell som passer fint til dit bruks område og at utvalgt modell passer til din hardware. Jeg valgte derfor Yolo11n for at den er god for trening og live deteksjon som var et viktig krav for dette prosjektet. 
+
+Ved å trene modellen på egne datasett, har jeg tilpasset den fra å gjenkjenne generelle objekter til å spesialisere den på seks ulike typer Twist-sjokolader. Treningen ble gjennomført over 60 epochs, noe som har gitt modellen god presisjon på treningsdataene.
+
+
+
+
+## Annotering og oppbygging av datasett
+
+Jeg bygde datasettet gradvis for å sikre god kvalitet og variasjon i treningsdataene.
+
+### Startfasen
+Først samlet jeg **~90 bilder** av alle objektene, med følgende innhold:
+- **Nærbilder** av hvert objekt
+- **Bilder av alle objekter sammen** med ulike bakgrunner
+- **Bilder med varierende støy** (fra lite til mye forstyrrelser)
+
+### Formål med variasjon
+Bildene ble tatt fra **forskjellige vinkler, former og bakgrunner** for å:
+✅ Trene modellen på ulike scenarier
+✅ Gjøre modellen **mer robust** mot variasjoner i miljø, bakgrunn og lys
+✅ Forbedre gjenkjenningsnøyaktigheten i virkelige situasjoner
+
+### Optimalisering av datasettet
+Til slutt endte jeg opp med **205 bilder**. Den gradvise oppbyggingen gjorde det mulig å:
+- Identifisere **hvilke objekter modellen gjenkjente godt**
+- Finne **svake punkter** som krevde mer trening
+- **Filtrere og fokusere** på de viktigste bildene for å skape et optimalt datasett
+
+
+## mAP
+Etter at min modell fikk trent igjennom treningsdatane fikk en jeg mAP vurdering av modellen som sier litt om hvordan modellen klarer å gjennkjenne objektene. mAP står for mean Average Precision og gir en meg et blikk av hva den er mer sikker på og hva den ikke er så sikker på. Dette har vert god hjlep for å se hva slags data jeg få fokusere mer på for å få datagrunnlaget godt. 
+
+![BoxP Curve](BoxP_curve.png)
+
+### konfidensscore
+Etter trening og når jeg kjører trent modell med et bilde eller live deteksjon vil hvert objekt få en konfidensscore. Det sier hvor sikker modellen er for at objektet er f.eks. en Daim. Det betyr ikke at modellen har rett, men hvor siker den er at objektet er det den trur. 
 
 
 ### Prosjektstruktur
@@ -86,6 +128,25 @@ Prosjektet er delt opp i separate moduler for å holde koden oversiktlig og vedl
 - **Konfidensscore er hvor sikker modellen er**
 - **Eksempel: kopp: 0.87**
 - **Det betyr at modellen er 87 % sikker på at objektet er en kopp**
+
+
+**annotering**
+Annotering betyr at du manuelt markerer objekter i bildene og sier hva de er. 
+- **Dette bruker modellen for å se hva slags objekt som den skal trenes på**
+- **Dette bir modellen navn på objektet**
+
+![Annotering](image.png)
+
+
+**mAP**
+- **mAP står for mean Average Precision**
+- **Det er en måling på hvor godt modellen finner objekter og plasserer bounding boxes riktig**
+
+mAP sier noe om hvor presis modellen er på valideringsdata. En høyere mAP betyr at modellen generelt treffer bedre på både klasse og plassering.
+
+
+**Deteksjonsproblem**
+Under live-deteksjon kan modellen av og til feilidentifisere objekter som holdes opp, spesielt når de ligner på andre objekter den er trent på. Selv om modellen raskt korrigerer seg og gjenkjenner riktig objekt, kan den midlertidig forveksle objekter under bevegelse.
 
 
 ### Sikkerhet og personvern
